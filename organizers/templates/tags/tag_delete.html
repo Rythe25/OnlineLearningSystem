@@ -1,0 +1,9 @@
+{% block content %}
+<div class="container-md">
+    <form method="POST" class="form-container">
+        {% csrf_token %} <!--For security purpose relate to injection-->
+        <h2>Do you want to delete  {{tag.title}} ?</h2>
+        <button type="submit" class="button-link delete-btn">Confirm</button>
+    </form>
+</div>
+{% endblock content %}

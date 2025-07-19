@@ -1,0 +1,161 @@
+Employee {
+	Personal Info {
+		id
+		name
+		age
+		contact
+		email
+		created
+		updated
+	}
+	
+	Actions {
+		CRUD Organizer {
+			(Organizer)
+		}
+
+		CRUD Course {
+			(Course)
+		}
+				
+		CRUD Review {
+			(Review)
+		}
+		
+		CRUD Enrollment{
+			(Enrollment)
+		}
+	}
+}
+
+Instructor {
+	Personal Info {
+		id
+		name
+		age
+		contact
+		email
+		salary
+		courses
+		created
+		updated
+	}
+	
+	Actions {
+		UD Course{
+			(Course)
+		}
+		
+		CRUD Lessons {
+			(Lesson)
+		}
+		
+		CRUD Assignment {
+			(Assignment)
+		}
+	}
+}
+
+Student {
+	Personal Info {
+		id
+		name
+		age
+		contact
+		email
+		created
+		updated
+
+		Progress {
+			courses
+			course_progress
+			lesson_progress
+			assignment_progress
+			lesson_score
+			assignment_score
+			total_score
+		}		
+	}
+	
+	Actions {		
+		U Assignment{
+			(Assigment)
+		}
+		
+		U Submission {
+			(Submission)
+		}
+		
+		U Review {
+			(Review)
+		}
+	}
+}
+
+Organizer {
+	Category {
+		id
+		name
+	}
+	
+	Tag {
+		id
+		name
+	}
+}
+
+Course {
+	id
+	title
+	image
+	description
+	price
+	published status
+	date fields
+	category
+	tags (Many)
+	instructor
+	lessons
+	review
+}
+
+Submission {
+	id
+	Assignment
+	student
+	submission_status
+}
+
+Assignment {
+	id
+	title
+	description
+	file
+	lesson
+	submission
+}
+
+Lesson{
+	id
+	title
+	video
+	file
+	description
+	course
+	assignment
+	lesson_status
+}
+
+Enrollment {
+	id
+	student
+	course
+}
+
+Review {
+	id
+	title
+	description
+	course
+	student
+}
