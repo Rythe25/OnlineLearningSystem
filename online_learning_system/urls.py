@@ -17,8 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from employees import urls as employee_urls
+from instructors import urls as intructor_urls
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('employees/', include(employee_urls))
-]
+    path('employees/', include(employee_urls)),
+    path('instructors/', include(intructor_urls))
+] 
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
