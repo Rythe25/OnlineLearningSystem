@@ -1,0 +1,52 @@
+{% block content %}
+<div class="container">
+    <h2>Student Information</h2>
+    <p>Welcome, {{ user.name }}!</p>
+    
+    {% if error %}
+        <p class="text-danger">{{ error }}</p>
+    {% else %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="text-success">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Personal Information</h5>
+                <p class="card-text"><strong>Name:</strong> {{ user.name }}</p>
+                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                <p class="card-text"><strong>Contact:</strong> {{ user.contact|default:"Not provided" }}</p>
+                <p class="card-text"><strong>Address:</strong> {{ user.address|default:"Not provided" }}</p>
+                <p class="card-text"><strong>Joined:</strong> {{ user.created|date:"F d, Y" }}</p>
+            </div>
+        </div>
+        
+        <h3>Enrolled Courses</h3>
+        {% if enrolled_courses %}
+            <div class="row">
+                {% for course in enrolled_courses %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            {% if course.cover %}
+                                <img src="{{ course.cover.url }}" class="card-img-top" alt="{{ course.title }}" style="max-width: 200px;">
+                            {% else %}
+                                <img src="https://via.placeholder.com/200" class="card-img-top" alt="No cover" style="max-width: 200px;">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ course.title }}</h5>
+                                <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No courses enrolled.</p>
+        {% endif %}
+    {% endif %}
+    
+    <a href="{% url 'student_home' %}" class="btn btn-secondary mt-3">Back to Courses</a>
+    <a href="{% url 'logout' %}" class="btn btn-secondary mt-3">Logout</a>
+</div>
+{% endblock %}

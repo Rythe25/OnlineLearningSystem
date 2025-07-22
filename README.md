@@ -1,4 +1,7 @@
 admin : admin
 pass : django@admin
 
-continue crud category, tag and course
+left over
+
+student assignment
+student submission

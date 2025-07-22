@@ -1,0 +1,39 @@
+{% block content %}
+<div class="container">
+    <h2>Course Details</h2>
+    <p>Welcome, {{ user.name }}!</p>
+    
+    {% if error %}
+        <p class="text-danger">{{ error }}</p>
+    {% else %}
+        <div class="card">
+            {% if course.cover %}
+                <img src="{{ course.cover.url }}" class="card-img-top" alt="{{ course.title }}" style="max-width: 300px;">
+            {% else %}
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="No cover" style="max-width: 300px;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ course.title }}</h5>
+                <p class="card-text"><strong>Description:</strong> {{ course.description }}</p>
+                <p class="card-text"><strong>Price:</strong> ${{ course.price }}</p>
+                <p class="card-text"><strong>Category:</strong> {{ course.category.title|default:"None" }}</p>
+                <p class="card-text"><strong>Instructors:</strong>
+                    {% for instructor in course.instructor.all %}
+                        {{ instructor.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p class="card-text"><strong>Tags:</strong>
+                    {% for tag in course.tags.all %}
+                        {{ tag.title }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p class="card-text"><strong>Created:</strong> {{ course.created|date:"F d, Y" }}</p>
+            </div>
+        </div>
+        <a href="{% url 'student_info' course_id=course.id %}" class="btn btn-primary mt-3">Enroll Course</a>
+        <a href="{% url 'student_home' %}" class="btn btn-secondary mt-3">Back to Courses</a>
+    {% endif %}
+    
+    <a href="{% url 'logout' %}" class="btn btn-secondary mt-3">Logout</a>
+</div>
+{% endblock %}

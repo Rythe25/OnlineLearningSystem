@@ -1,0 +1,33 @@
+
+{% block content %}
+<div class="container">
+    <h2>Lesson Details</h2>
+    <p>Welcome, {{ user.name }}!</p>
+    
+    {% if error %}
+        <p class="text-danger">{{ error }}</p>
+    {% else %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ lesson.title }}</h5>
+                <p class="card-text"><strong>Course:</strong> {{ course.title }}</p>
+                <p class="card-text"><strong>Description:</strong> {{ lesson.description }}</p>
+                {% if lesson.video %}
+                    {% load embed_video_tags %}
+                    <div class="embed-responsive embed-responsive-16by9">
+                        {% video lesson.video %}
+                    </div>
+                {% endif %}
+                {% if lesson.file %}
+                    <p><a href="{{ lesson.file.url }}" class="btn btn-secondary btn-sm" target="_blank">Download File</a></p>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    
+    <a href="{% url 'student_lesson_list' %}" class="btn btn-secondary mt-3">Back to Lesson List</a>
+    <a href="{% url 'student_home' %}" class="btn btn-secondary mt-3">Back to Courses</a>
+    <a href="{% url 'student_info' %}" class="btn btn-secondary mt-3">My Info</a>
+    <a href="{% url 'logout' %}" class="btn btn-secondary mt-3">Logout</a>
+</div>
+{% endblock %}

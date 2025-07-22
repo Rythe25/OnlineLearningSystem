@@ -1,0 +1,83 @@
+{% block content %}
+<div class="container">
+    <h2>Student Dashboard</h2>
+    <p>Welcome, {{ user.name }}!</p>
+    
+    <!-- Filter Form -->
+    <form method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="instructor">Filter by Instructor</label>
+                <select name="instructor" id="instructor" class="form-control">
+                    <option value="">All Instructors</option>
+                    {% for instructor in instructors %}
+                        <option value="{{ instructor.id }}" {% if request.GET.instructor == instructor.id|stringformat:"s" %}selected{% endif %}>
+                            {{ instructor.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="category">Filter by Category</label>
+                <select name="category" id="category" class="form-control">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>
+                            {{ category.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="tag">Filter by Tag</label>
+                <select name="tag" id="tag" class="form-control">
+                    <option value="">All Tags</option>
+                    {% for tag in tags %}
+                        <option value="{{ tag.id }}" {% if request.GET.tag == tag.id|stringformat:"s" %}selected{% endif %}>
+                            {{ tag.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
+    </form>
+    
+    <!-- Course List -->
+    <h3>Courses</h3>
+    {% if courses %}
+        <div class="row">
+            {% for course in courses %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        {% if course.cover %}
+                            <img src="{{ course.cover.url }}" class="card-img-top" alt="{{ course.title }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="No cover">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.title }}</h5>
+                            <p class="card-text">Category: {{ course.category.title|default:"None" }}</p>
+                            <p class="card-text">Instructors: 
+                                {% for instructor in course.instructor.all %}
+                                    {{ instructor.name }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                            <p class="card-text">Tags: 
+                                {% for tag in course.tags.all %}
+                                    {{ tag.title }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                            <a href="{% url 'student_enrollment' course.id %}" class="btn btn-primary">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No courses found.</p>
+    {% endif %}
+    
+    <a href="{% url 'logout' %}" class="btn btn-secondary mt-3">Logout</a>
+</div>
+{% endblock %}

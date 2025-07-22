@@ -16,15 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from employees import urls as employee_urls
-from instructors import urls as intructor_urls
 from django.conf import settings
 from django.conf.urls.static import static
 
+from employees import urls as employee_urls
+from instructors import urls as intructor_urls
+from users import urls as user_urls
+from students import urls as student_urls
+
 urlpatterns = [
+    path('',include(user_urls)),
     path('admin/', admin.site.urls),
     path('employees/', include(employee_urls)),
-    path('instructors/', include(intructor_urls))
+    path('instructors/', include(intructor_urls)),
+    path('students/', include(student_urls)),
 ] 
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:

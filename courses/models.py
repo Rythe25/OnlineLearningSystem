@@ -15,8 +15,7 @@ class Course(models.Model):
     published_status = models.BooleanField(default=False)  # True for published, False for draft
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)  # One category
     tags = models.ManyToManyField(Tag, blank=True)  # Multiple tags, removed on_delete
-    instructor = models.ForeignKey(Instructor, on_delete=models.SET_NULL, null=True, blank=True)  # One instructor
-    # lessons = models.ManyToManyField('Lesson', blank=True, related_name='courses')  # Multiple lessons
+    instructor = models.ManyToManyField(Instructor, blank=True)  # One instructor
     # review = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
