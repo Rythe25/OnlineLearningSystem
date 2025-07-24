@@ -13,15 +13,12 @@ urlpatterns = [
     
     # # Lesson
     path('lessons/', views.student_lesson_list, name='student_lesson_list'),
-        path('lessons/<uuid:lesson_id>/', views.student_lesson, name='student_lesson'),
-    # path('lessons/create/', lesson_views.lesson_create, name ='lesson_create'),
-    # path('lessons/update/<uuid:pk>/', lesson_views.lesson_update, name ='lesson_update'),
-    # path('lessons/delete/<uuid:pk>/', lesson_views.lesson_delete, name ='lesson_delete'),
+    path('lessons/<uuid:lesson_id>/', views.student_lesson, name='student_lesson'),
     
-    # # Assignment
-    # path('assignments/', views.instructor_assignment, name ='instructor_assignment'),
-    # path('assignments/create/', assignment_views.assignment_create, name ='assignment_create'),
-    # path('assignments/update/<uuid:pk>/', assignment_views.assignment_update, name ='assignment_update'),
-    # path('assignments/delete/<uuid:pk>/', assignment_views.assignment_delete, name ='assignment_delete'),
+    # Assignment
+    path('assignments/', views.student_assignment_list, name ='student_assignment_list'),
+    
+    # Submission
+    path('submissions/<uuid:assignment_id>/', views.student_submission, name ='student_submission'),
     
 ]

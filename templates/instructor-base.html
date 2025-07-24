@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <title>Online Learning System</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="left">Online Learning System</div>
+      <div class="center">
+        <a class="nav-item" href="{% url 'instructor_home' %}">Home</a>
+        <a class="nav-item" href="{% url 'instructor_lesson' %}">Lesson</a>
+        <a class="nav-item" href="{% url 'instructor_assignment' %}"
+          >Assignment</a
+        >
+        <a class="nav-item" href="{% url 'instructor_submission_list' %}"
+          >Submission</a
+        >
+        <a class="nav-item" href="{% url 'instructor_info' %}">Info</a>
+      </div>
+      <div class="right">
+        <a class="nav-item" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+
+    <div class="container">{% block content %}{% endblock %}</div>
+  </body>
+</html>

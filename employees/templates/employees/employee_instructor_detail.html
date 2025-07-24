@@ -1,0 +1,17 @@
+{% extends "employee-base.html" %}
+{% block title %}Instructor Details{% endblock %}
+{% block content %}
+<div class="container-md">
+    <div class="form-container">
+        <h1 style="font-weight: normal;">Instructor Details</h1>
+            <div class="form-container-m">
+                <h2>Personal Information</h2>
+                <p><strong>Name:</strong> {{ instructor.name }}</p>
+                <p><strong>Email:</strong> {{ instructor.email }}</p>
+                <p><strong>Contact:</strong> {{ instructor.contact|default:"Not provided" }}</p>
+                <p><strong>Address:</strong> {{ instructor.address|default:"Not provided" }}</p>
+                <p><strong>Joined:</strong> {{ instructor.created|date:"F d, Y" }}</p>
+            </div>
+    </div>
+</div>
+{% endblock %}

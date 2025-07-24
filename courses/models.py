@@ -12,7 +12,6 @@ class Course(models.Model):
     cover = models.ImageField(upload_to='course/covers/', null=True, blank=True)
     description = models.TextField()
     price = models.DecimalField(decimal_places=2, max_digits=6)  # Max 9999.99
-    published_status = models.BooleanField(default=False)  # True for published, False for draft
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)  # One category
     tags = models.ManyToManyField(Tag, blank=True)  # Multiple tags, removed on_delete
     instructor = models.ManyToManyField(Instructor, blank=True)  # One instructor

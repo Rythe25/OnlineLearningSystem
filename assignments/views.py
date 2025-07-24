@@ -3,7 +3,9 @@ from .models import Assignment
 from .forms import AssignmentForm
 from django.http import HttpResponseNotFound
 import os
+from users.decorators import role_required
 
+@role_required('INSTRUCTOR')
 def assignment_create(request):
     if request.method == 'POST':
         form = AssignmentForm(request.POST, request.FILES)
@@ -19,6 +21,7 @@ def assignment_create(request):
         'title': 'Create Assignment'
     })
 
+@role_required('INSTRUCTOR')
 def assignment_update(request,pk):
     assignment = Assignment.objects.filter(pk = pk).first()
     if not assignment:
@@ -35,6 +38,7 @@ def assignment_update(request,pk):
         form = AssignmentForm(instance=assignment)
     return render(request,"assignments/assignment_update.html",{"form":form})
 
+@role_required('INSTRUCTOR')
 def assignment_delete(request,pk):
     assignment = Assignment.objects.filter(pk = pk).first()
     if not assignment:

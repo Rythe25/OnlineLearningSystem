@@ -4,10 +4,8 @@ from lessons import views as lesson_views
 from assignments import views as assignment_views
 
 urlpatterns = [
+    # Home
     path('', views.instructor_home, name='instructor_home'),
-    
-    #Course
-    path('courses/', views.instructor_course, name='instructor_course'),
     
     # Lesson
     path('lessons/', views.instructor_lesson, name ='instructor_lesson'),
@@ -21,4 +19,11 @@ urlpatterns = [
     path('assignments/update/<uuid:pk>/', assignment_views.assignment_update, name ='assignment_update'),
     path('assignments/delete/<uuid:pk>/', assignment_views.assignment_delete, name ='assignment_delete'),
     
+    # Submission
+    path('submissions/', views.instructor_submission_list, name='instructor_submission_list'),
+    path('submissions/<uuid:submission_id>/', views.instructor_submission, name='instructor_submission'),
+    path('submissions/reject/<uuid:submission_id>/', views.instructor_submission_reject, name='instructor_submission_reject'),
+    
+    # Info
+    path('infos/', views.instructor_info, name ='instructor_info'),
 ]

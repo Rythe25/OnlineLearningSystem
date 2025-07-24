@@ -17,17 +17,27 @@
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
       crossorigin="anonymous"
     ></script>
+    {% extends "instructor-base.html" %} 
+    {% block content %}
     <div class="container-md">
-      <h2>Assignment List</h2>
-      {% for assignment in assignments %}
-        <div class="card-body">
-          <h5 class="card-title">assignment ID: {{ assignment.id }}</h5>
-          <p class="card-text"><strong>Course:</strong> {{ assignment.course.title}}</p>
-          <p class="card-text"><strong>Title:</strong> {{ assignment.title }}</p>
-          <p class="card-text"><strong>Description:</strong> {{ assignment.description }}</p>
-          <p class="card-text"><strong>File:</strong><a href="{{ assignment.file.url }}" class="btn btn-primary" target="_blank">View</a></p>
-        </div>
-        {% endfor %}
+      <div class="form-container">
+        <h2>Assignments</h2>
+        <a href="{% url 'assignment_create' %}" class="button-link">Create</a>
+        {% for assignment in assignments %}
+          <div class="form-container-m">
+            <h5>assignment ID: {{ assignment.id }}</h5>
+            <p ><strong>Course:</strong> {{ assignment.course.title}}</p>
+            <p ><strong>Title:</strong> {{ assignment.title }}</p>
+            <p ><strong>Description:</strong> {{ assignment.description }}</p>
+            <p ><strong>File: </strong><a href="{{ assignment.file.url }}" class="button-link" target="_blank">View</a></p>
+            <div style="display: flex; justify-content: right; gap: 10px;">
+              <a href="{% url 'assignment_update' assignment.id %}" class="button-link button">Update</a>
+              <a href="{% url 'assignment_delete' assignment.id %}" class="button-link button delete-btn">Delete</a>
+          </div>
+          </div>
+          {% endfor %}
+      </div>
     </div>
+    {% endblock %}
   </body>
 </html>

@@ -3,7 +3,9 @@ from .models import Lesson
 from .forms import LessonForm
 from django.http import HttpResponseNotFound
 import os
+from users.decorators import role_required
 
+@role_required('INSTRUCTOR')
 def lesson_create(request):
     if request.method == 'POST':
         form = LessonForm(request.POST, request.FILES)
@@ -19,6 +21,7 @@ def lesson_create(request):
         'title': 'Create Lesson'
     })
 
+@role_required('INSTRUCTOR')
 def lesson_update(request,pk):
     lesson = Lesson.objects.filter(pk = pk).first()
     if not lesson:
@@ -35,6 +38,7 @@ def lesson_update(request,pk):
         form = LessonForm(instance=lesson)
     return render(request,"lessons/lesson_update.html",{"form":form})
 
+@role_required('INSTRUCTOR')
 def lesson_delete(request,pk):
     lesson = Lesson.objects.filter(pk = pk).first()
     if not lesson:

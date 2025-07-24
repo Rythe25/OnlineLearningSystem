@@ -1,20 +1,25 @@
 from django import forms
 from .models import Course
-# from organizers.models import Category
 
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = '__all__'
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['title'].label = "Course Title"
-    #     self.fields['description'].label = "Course Description"
-    #     self.fields['price'].label = "Price (up to 9999.99)"
-    #     self.fields['published_status'].label = "Published?"
-    #     self.fields['category'].queryset = Category.objects.all()
-    #     self.fields['cover'].label = "Course Cover"
-    #     self.fields['price'].widget = forms.NumberInput(attrs={'step': '0.01'})
-    #     self.fields['published_status'].widget = forms.CheckboxInput()
-    #     self.fields['cover'].required = False  # Allow updating without changing cover
+        fields = ['title', 'cover', 'description', 'price', 'category', 'tags', 'instructor']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter course title'}),
+            'cover': forms.FileInput(attrs={'class': 'form-control', 'accept': 'image/*'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Enter course description'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'placeholder': 'Enter price'}),
+            'category': forms.Select(attrs={'class': 'form-select'}),
+            'tags': forms.SelectMultiple(attrs={'class': 'form-select'}),
+            'instructor': forms.SelectMultiple(attrs={'class': 'form-select'}),
+        }
+        labels = {
+            'title': 'Course Title',
+            'cover': 'Course Cover Image',
+            'description': 'Description',
+            'price': 'Price ($)',
+            'category': 'Category',
+            'tags': 'Tags',
+            'instructor': 'Instructors',
+        }

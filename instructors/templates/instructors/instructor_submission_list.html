@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+      crossorigin="anonymous"
+    ></script>
+    {% extends "instructor-base.html" %} 
+    {% block content %}
+    <div class="container-md">
+      <div class="form-container">
+        <h2>Submissions</h2>
+        {% if error %}
+          <p>{{ error }}</p>
+        {% else %}
+          <form method="GET" class="form-container">
+            <label for="course_id">Filter by Course:</label>
+            <select name="course_id" id="course_id">
+              <option value="">All Courses</option>
+              {% for course in courses %}
+                <option value="{{ course.id }}" {% if selected_course == course.id %}selected{% endif %}>{{ course.title }}</option>
+              {% endfor %}
+            </select>
+            <button class="button-link">Filter</button>
+          </form>
+          <div class="form-container">
+            {% if submissions %}
+              {% for course in courses %}
+                {% for submission in submissions %}
+                  {% if submission.course == course %}
+                    <div class="form-container-m">
+                      <h3>{{ course.title }}</h3>
+                      <p>Submission ID: {{ submission.id }}</p>
+                      <p>Student: {{ submission.student.name }}</p>
+                      <p>Description: {{ submission.description }}</p>
+                      <a href="{% url 'instructor_submission' submission.id %}" class="button-link">Review</a>
+                      <a href="{% url 'instructor_submission_reject' submission.id %}" class="button-link delete-btn">Reject</a>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% empty %}
+                <p>No submissions found for enrolled courses.</p>
+              {% endfor %}
+            {% else %}
+              <p>No submissions found.</p>
+            {% endif %}
+            {% endif %}
+          </div>
+      </div>
+    </div>
+
+{% endblock %}
+</body>
+</html>

@@ -1,9 +1,11 @@
+{% extends "instructor-base.html" %}
 {% block content %}
 <div class="container-md">
     <form method="POST" class="form-container">
         {% csrf_token %} <!--For security purpose relate to injection-->
         <h2>Do you want to delete  {{lesson.title}} ?</h2>
         <button type="submit" class="button-link delete-btn">Confirm</button>
+        <a href="{% url 'instructor_lesson' %}">Cancel</a>
     </form>
 </div>
 {% endblock content %}

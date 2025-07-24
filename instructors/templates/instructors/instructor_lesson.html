@@ -17,21 +17,35 @@
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
       crossorigin="anonymous"
     ></script>
+    {% extends "instructor-base.html" %} 
+    {% block title %}Instructor Home{% endblock %}
+    {% block content %}
     <div class="container-md">
-      <h2>Lesson List</h2>
-      {% load embed_video_tags %}
-      {% for lesson in lessons %}
-        <div class="card-body">
-          <h5 class="card-title">Lesson ID: {{ lesson.id }}</h5>
-          <p class="card-text"><strong>Course:</strong> {{ lesson.course.title}}</p>
-          <p class="card-text"><strong>Title:</strong> {{ lesson.title }}</p>
-          <p class="card-text"><strong>Description:</strong> {{ lesson.description }}</p>
-          <div class="mt-2">
-                {%video lesson.video%}  
+      <div class="form-container">
+        <h2>Lessons</h2>
+        <a href="{% url 'lesson_create' %}" class="button-link">Create</a>
+        {% load embed_video_tags %}
+        {% for lesson in lessons %}
+          <div class="form-container-m">
+            <p><strong>Lesson ID:</strong> {{ lesson.id }}</p>
+            <p ><strong>Course:</strong> {{ lesson.course.title}}</p>
+            <p ><strong>Title:</strong> {{ lesson.title }}</p>
+            <div class="mt-2" style="max-width: 100%; display: flex; justify-content: center;">
+                  {%video lesson.video '680x340' %}
+            </div>
+            <br>
+            <p ><strong>Description:</strong> {{ lesson.description }}</p>
+            <p class="card-text"><strong>Resource:</strong>
+            <a href="{{ lesson.file.url }}" class="button-link" target="_blank">View</a></p>
+            <hr>
+            <div style="display: flex; justify-content: right; gap: 10px;">
+              <a href="{% url 'lesson_update' lesson.id %}" class="button-link button">Update</a>
+              <a href="{% url 'lesson_delete' lesson.id %}" class="button-link button delete-btn">Delete</a>
+            </div>
           </div>
-          <p class="card-text"><strong>File:</strong><a href="{{ lesson.file.url }}" class="btn btn-primary" target="_blank">View</a></p>
-        </div>
-        {% endfor %}
+          {% endfor %}
+      </div>
     </div>
+    {% endblock %}
   </body>
 </html>

@@ -13,8 +13,7 @@ class User(models.Model):
     updated = models.DateTimeField(auto_now=True)
     role = models.CharField(max_length=20, choices=[('EMPLOYEE', 'Employee'),
                                                     ('INSTRUCTOR', 'Instructor'),
-                                                    ('STUDENT', 'Student')],
-                            default='EMPLOYEE')
+                                                    ('STUDENT', 'Student')])
 
     def __str__(self):
         return self.name
